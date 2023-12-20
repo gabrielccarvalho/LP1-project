@@ -7,7 +7,7 @@
 
 class Person {
 public:
-  Person(std::string name, int age) : name(name) {};
+  Person(std::string name, int age) : name(name), age(age) {};
 
   std::string getName() const { return name; }
   int getAge() const { return age; }
