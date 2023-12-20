@@ -1,16 +1,19 @@
 #include <string>
+#include <sstream>
 #include <vector>
+#include <memory>
+#include <cstring>
 
 class Person {
 public:
-    Person(std::string name, int age) : name(name), age(age) {}
+  Person(std::string name, int age) : name(name) {};
 
-    std::string getName() const { return name; }
-    int getAge() const { return age; }
+  std::string getName() const { return name; }
+  int getAge() const { return age; }
 
 protected:
-    std::string name;
-    int age;
+  std::string name;
+  int age;
 };
 
 class Student: public Person {
@@ -25,9 +28,20 @@ public:
   void removeClass(std::string className);
   void editClass(std::string oldClassName, std::string newClassName);
 
+  static bool doesStudentExist(const std::vector<std::unique_ptr<Student>>& studentList, int regID) {
+    for (const auto& student : studentList) {
+      if (student->getRegistrationID() == regID) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  ~Student() {
+    classes.clear();
+  }
+
 private:
-  std::string name;
-  int age;
   int registrationID;
   std::vector<std::string> classes;
 };

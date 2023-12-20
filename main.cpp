@@ -24,7 +24,6 @@ void addStudent(std::vector<std::unique_ptr<Student>>& studentList, std::string 
   studentList.push_back(std::move(student));
 }
 
-
 // Function to remove a student
 void removeStudent(std::vector<std::unique_ptr<Student>>& studentList, int regID) {
   for(auto it = studentList.begin(); it != studentList.end(); ++it) {
@@ -49,7 +48,87 @@ void addClass(std::vector<std::unique_ptr<Student>>& studentList, int regID, std
   }
 }
 
+void displayInfo() {
+std::vector<std::unique_ptr<Student>> studentList;
 
+  // Load File
+  std::string line;
+  std::ifstream readFile("studentData.txt");
+  if (readFile.is_open()) {
+    while (std::getline(readFile, line)) {
+      std::istringstream ss(line);
+      std::string name, className;
+      int age, id;
+      ss >> name >> age >> id;
+      std::unique_ptr<Student> student = std::make_unique<Student>(name, age, id);
+      while(ss >> className)
+          student->addClass(className);
+      studentList.push_back(std::move(student));
+    }
+    readFile.close();
+  }
+  else {
+    std::cout << "Unable to open file";
+  }
+
+  for(size_t i = 0; i < studentList.size(); i++) {
+    std::cout << "Nome: " << studentList[i]->getName() << ", Idade: " << studentList[i]->getAge() << ", Matricula: " << studentList[i]->getRegistrationID() << std::endl;
+    std::cout << "Classes: ";
+    for (const auto& className : studentList[i]->getClasses()) {
+      std::cout << className << " ";
+    }
+    std::cout << std::endl;
+  }
+}
+
+// Sobrecarga da função para exibir informações específicas
+void displayInfo(bool showName, bool showAge, bool showID, bool showClasses) {
+  std::vector<std::unique_ptr<Student>> studentList;
+
+  // Load File
+  std::string line;
+  std::ifstream readFile("studentData.txt");
+  if (readFile.is_open()) {
+    while (std::getline(readFile, line)) {
+      std::istringstream ss(line);
+      std::string name, className;
+      int age, id;
+      ss >> name >> age >> id;
+      std::unique_ptr<Student> student = std::make_unique<Student>(name, age, id);
+      while(ss >> className)
+          student->addClass(className);
+      studentList.push_back(std::move(student));
+    }
+    readFile.close();
+  }
+  else {
+    std::cout << "Unable to open file";
+  }
+
+  for(size_t i = 0; i < studentList.size(); i++) {
+    if(showName)
+      std::cout << "Nome: " << studentList[i]->getName() << std::endl;
+    if(showAge)
+      std::cout << "Idade: " << studentList[i]->getAge() << std::endl;
+    if(showID)
+      std::cout << "Matricula: " << studentList[i]->getRegistrationID() << std::endl;
+    if(showClasses) {
+      std::cout << "Classes: ";
+      for (const auto& className : studentList[i]->getClasses()) {
+        std::cout << className << " ";
+      }
+      std::cout << std::endl;
+    }
+  }
+}
+
+void studentExists(std::vector<std::unique_ptr<Student>>& studentList, int regID) {
+  if(Student::doesStudentExist(studentList, regID)) {
+    std::cout << "Student exists" << std::endl;
+  } else {
+    std::cout << "Student doesn't exist" << std::endl;
+  }
+}
 
 // Main Function
 int main() {
@@ -77,7 +156,11 @@ int main() {
   }
 
   // Manipulate data
-  addClass(studentList, 2023001, {"IMD0030", "IMD0031"});
+  // addClass(studentList, 2023001, {"IMD0030", "IMD0031"});
+  displayInfo();
+  // displayInfo(true, false, false, false);
+  // studentExists(studentList, 2023001);
+  // editAge(studentList, 2023001, "20");
   // addStudent(studentList, "John", 25, 2025001, {"IMD0030", "IMD0031"});
   // removeStudent(studentList, 2025001);
   

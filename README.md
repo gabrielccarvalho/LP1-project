@@ -22,3 +22,15 @@
 
 ## OBS:
 - O programa também gerencia erros, como problemas ao abrir os arquivos. Além disso, faz uso de `unique_ptr` para evitar vazamentos de memória.
+
+
+- [] Alocação de memória dinâmica: 1.0
+- [x] Manipulação de Arquivos: 2.0 (main.cpp - Linha 132; Linha 159)
+- [x] Construtores: 1.0 (Student.h - Linha 6; Linha 18)
+- [x] Destrutores: 0.5 (Student.h - Linha 28)
+- [x] Mem. Estáticos: 1.0 (Student.h - Linha 37)
+- [x] Sobrecarga de Função: 1.5 (main.cpp - Linha 86)
+- [x] Herança: 3.5 (Student.h - Linha 16)
+
+
+TOTAL = 9.5
