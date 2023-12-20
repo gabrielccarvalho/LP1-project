@@ -1,15 +1,12 @@
 #include "Student.h"
 #include <algorithm>
 
-Student::Student(std::string name, int age, int registrationID) 
-  : name(name), age(age), registrationID(registrationID) {}
-
 std::string Student::getName() {
-  return this->name;
+  return Person::getName();
 }
 
 int Student::getAge() {
-  return this->age;
+  return Person::getAge();
 }
 
 int Student::getRegistrationID() {
@@ -22,6 +19,10 @@ std::vector<std::string> Student::getClasses() {
 
 void Student::addClass(std::string className) {
   this->classes.push_back(className);
+}
+
+void Student::editClass(std::string oldClassName, std::string newClassName) {
+  std::replace(this->classes.begin(), this->classes.end(), oldClassName, newClassName);
 }
 
 void Student::removeClass(std::string className) {

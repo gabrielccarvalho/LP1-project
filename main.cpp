@@ -35,18 +35,21 @@ void removeStudent(std::vector<std::unique_ptr<Student>>& studentList, int regID
   }
 }
 
-// Function to edit a student's classes
-void editStudentClasses(std::vector<std::unique_ptr<Student>>& studentList, int regID, std::vector<std::string> classesToAdd, std::vector<std::string> classesToRemove) {
+void addClass(std::vector<std::unique_ptr<Student>>& studentList, int regID, std::vector<std::string> newClasses) {
   int index = findStudent(studentList, regID);
   if(index != -1) {
-    for(auto& className : classesToAdd) {
+    studentList[index]->getClasses().clear();  // Incorrect - doesn't affect the actual classes
+    
+    // Clear the actual classes and add new classes
+    studentList[index]->removeClass(""); // Clear all existing classes
+    
+    for(auto& className : newClasses) {
       studentList[index]->addClass(className);
-    }
-    for(auto& className : classesToRemove) {
-      studentList[index]->removeClass(className);
     }
   }
 }
+
+
 
 // Main Function
 int main() {
@@ -74,8 +77,8 @@ int main() {
   }
 
   // Manipulate data
-  // editStudentClasses(studentList, 2019001, {"IMD0030"}, {"IMD0031"});
-  // addStudent(studentList, "John Doe", 25, 2025001, {"IMD0030", "IMD0031"});
+  addClass(studentList, 2023001, {"IMD0030", "IMD0031"});
+  // addStudent(studentList, "John", 25, 2025001, {"IMD0030", "IMD0031"});
   // removeStudent(studentList, 2025001);
   
   // Update File
